@@ -1,3 +1,286 @@
-<html>
-  Hello World!
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Vevo</title>
+  <script src="./static/tailwind.js"></script>
+  <script src="./static/vue.global.js"></script>
+  <script src="./static/flowbite.min.js"></script>
+  <script src="./static/d3.v7.min.js"></script>
+  <style type="text/tailwindcss">
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+
+    @layer base {
+      a[href^="http"] {
+        @apply text-blue-500;
+      }
+
+      a:hover {
+        @apply text-blue-700 underline;
+      }
+
+      h1 {
+        @apply mb-6 text-4xl font-bold text-gray-900 dark:text-white text-center;
+      }
+
+      h4 {
+        @apply mb-4 pt-12 text-3xl font-semibold text-gray-900 dark:text-white;
+      }
+
+      h5 {
+        @apply mb-3 pt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white;
+      }
+
+      p {
+        @apply mb-4 font-normal text-gray-900 dark:text-gray-400 leading-relaxed;
+      }
+    }
+
+    @layer components {
+      .list-select {
+        @apply block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent;
+      }
+
+      .tooltip {
+        position: absolute;
+        text-align: center;
+        padding: 8px;
+        font: 12px sans-serif;
+        background: lightsteelblue;
+        border: 0;
+        border-radius: 8px;
+        pointer-events: none;
+        opacity: 0;
+      }
+
+      .text-p {
+        @apply mb-4 font-normal text-gray-900 dark:text-gray-400 leading-relaxed;
+      }
+
+      .author {
+        @apply font-medium mr-2 pb-1 text-gray-900 dark:text-gray-400 inline-block;
+      }
+
+      .affiliation {
+        @apply font-medium mr-2 pb-1 text-gray-900 dark:text-gray-400 block;
+      }
+    }
+  </style>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {}
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="dark:bg-gray-900">
+  <div id="app">
+
+    <div class="p-5 md:p-0 mt-16 max-w-screen-xl mx-auto">
+      <div class="p-6" id="home">
+
+        <div class="mt-8 mb-8">
+          <h1>Vevo: Controllable Zero-Shot Voice Imitation with Self-Supervised Disentanglement</h1>
+        </div>
+
+        <div class="max-w-[900px] mx-auto mt-8 mb-16">
+          <h5>Abstract</h5>
+          <p class="text-p">
+            The imitation of voice, targeted on specific speech attributes such as timbre and speaking style, is crucial
+            in speech generation. However, existing methods rely heavily on annotated data, and struggle with
+            effectively disentangling timbre and style, leading to challenges in achieving controllable generation,
+            especially in zero-shot scenarios. To address these issues, we propose <b>Vevo</b>, a <b>ve</b>rsatile
+            zero-shot
+            <b>vo</b>ice
+            imitation framework with controllable timbre and style. Vevo operates in two core stages: (1)
+            <b>Content-Style
+              Modeling</b>: Given either text or speech's content tokens as input, we utilize an autoregressive
+            transformer to
+            generate the content-style tokens, which is prompted by a style reference; (2) <b>Acoustic Modeling</b>:
+            Given the
+            content-style tokens as input, we employ a flow-matching transformer to produce acoustic representations,
+            which is prompted by a timbre reference. To obtain the content and content-style tokens of speech, we design
+            a fully self-supervised approach that progressively decouples the timbre, style, and linguistic content of
+            speech. Specifically, we adopt VQ-VAE as the tokenizer for the continuous hidden features of HuBERT. We
+            treat the vocabulary size of the VQ-VAE codebook as the information bottleneck, and adjust it carefully to
+            obtain the disentangled speech representations. Solely self-supervised trained on 60K hours of audiobook
+            speech data, without any fine-tuning on style-specific corpora, Vevo matches or surpasses existing methods
+            in accent and emotion conversion tasks. Additionally, Vevo’s effectiveness in zero-shot voice conversion and
+            text-to-speech tasks further demonstrates its strong generalization and versatility.
+
+          </p>
+        </div>
+
+        <div class="mt-8 mb-8">
+          <h4 id="tldr">What can Vevo do?</h4>
+          <div class="flex mx-auto justify-center max-w-screen-lg py-8">
+            <img src="static/vevo-inference.png"></img>
+          </div>
+          <p>
+            Vevo can take either speech or text as input, and perform zero-shot imitation with controllable linguistic
+            content (controlled by the source), style (controlled by the style reference), and timbre (controlled by the
+            timbre reference) in a single forward pass.
+          </p>
+        </div>
+
+
+        <div class="mt-8 mb-8">
+          <h4 id="tldr">Gallery</h4>
+          <!-- <p>
+            TODO
+          </p> -->
+        </div>
+
+        <div class="w-full overflow-x-auto">
+          <div class="relative w-[1026px] mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
+            <table class="table-gallery">
+              <thead>
+                <tr>
+                  <th style="text-align: center;">Source</th>
+                  <th style="text-align: center;">Reference</th>
+                  <th style="text-align: center;">Imitated Attributes</th>
+                  <th style="text-align: center;">Target</th>
+                  <th style="text-align: center;">Applications</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    I'm a versatile zero-shot voice cloner. I can mimic a wide range of vocal styles from
+                    either text or waveform as input.
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/gallery/tts_prompt.wav">
+                    </audio>
+                  </td>
+                  <td>
+                    <b>Timbre</b>, <b>Style</b>
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/gallery/tts_versacloner_I.wav">
+                    </audio>
+                  </td>
+                  <td>
+                    Zero-shot TTS
+                  </td>
+                </tr>
+                <tr>
+                  <td rowspan="5">
+                    <audio controls>
+                      <source src="data/gallery/tts_versacloner_I.wav">
+                    </audio>
+                  </td>
+                  <td rowspan="2">
+                    <audio controls>
+                      <source src="data/gallery/vc_prompt_arabic.wav">
+                    </audio>
+                  </td>
+                  <td>
+                    <b>Timbre</b>
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/gallery/vc_timbre_arabic.wav">
+                    </audio>
+                  </td>
+                  <td rowspan="2">
+                    Zero-shot Voice Conversion
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <b>Timbre</b>, <b>Style</b>
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/gallery/vc_timbre_and_style_arabic.wav">
+                    </audio>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <audio controls>
+                      <source src="data/gallery/vc_prompt_hindi.wav">
+                    </audio>
+                  </td>
+                  <td>
+                    <b>Style</b>
+                    <br>
+                    <i>(accent)</i>
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/gallery/vc_style_hindi.wav">
+                    </audio>
+                  </td>
+                  <td rowspan="3">
+                    Zero-shot Accent Conversion,<br>Zero-shot Emotion Conversion,<br>etc.
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <audio controls>
+                      <source src="data/gallery/vc_prompt_angry.wav">
+                    </audio>
+                  </td>
+                  <td>
+                    <b>Style</b>
+                    <br>
+                    <i>(emotion)</i>
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/gallery/vc_style_angry.wav">
+                    </audio>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <audio controls>
+                      <source src="data/gallery/vc_prompt_slow.wav">
+                    </audio>
+                  </td>
+                  <td>
+                    <b>Style</b>
+                    <br>
+                    <i>(speed)</i>
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/gallery/vc_style_slow.wav">
+                    </audio>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
 </html>
