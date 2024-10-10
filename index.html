@@ -10,6 +10,9 @@
   <script src="./static/vue.global.js"></script>
   <script src="./static/flowbite.min.js"></script>
   <script src="./static/d3.v7.min.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
   <style type="text/tailwindcss">
     @tailwind base;
     @tailwind components;
@@ -127,18 +130,105 @@
             <img src="static/vevo-inference.png"></img>
           </div>
           <p>
-            Vevo can take either speech or text as input, and perform zero-shot imitation with controllable linguistic
+            Vevo can take <i>either</i> speech <i>or</i> text as input, and perform zero-shot imitation with
+            controllable linguistic
             content (controlled by the source), style (controlled by the style reference), and timbre (controlled by the
-            timbre reference) in a single forward pass.
+            timbre reference) in a single forward pass. This inference pipeline can be adjusted for various zero-shot
+            imitation tasks.
+          </p>
+          <p>
+            Given a source
+            speech (\( \textcolor{blue}{U_i} \)) or text (\( \textcolor{blue}{T_i} \)), and a
+            reference speech
+            (\( \textcolor{red}{U_r} \)),
+            we propose the following variants of Vevo according to the specific task:
           </p>
         </div>
 
 
+        <div class="w-full overflow-x-auto">
+          <div class="relative w-[700px] mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
+            <table>
+              <caption style="caption-side: bottom; text-align: left;"><b>Note</b>: For Vevo-Timbre, we directly extract
+                the
+                content-style tokens from the source speech, and input them into flow-matching
+                transformer for generation.</caption>
+              <thead>
+                <tr>
+                  <th style="text-align: center;">Task</th>
+                  <th style="text-align: center;">Model</th>
+                  <th style="text-align: center;">Source</th>
+                  <th style="text-align: center;">Style Reference</th>
+                  <th style="text-align: center;">Timbre Reference</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td style="background-color: #f4f4f4;"><b>Zero-Shot<br>Timbre Imitation</b></td>
+                  <td>
+                    <b>Vevo-Timbre</b>
+                  </td>
+                  <td>
+                    \( \textcolor{blue}{U_i} \)
+                  </td>
+                  <td>/</td>
+                  <td>
+                    \( \textcolor{red}{U_r} \)
+                  </td>
+                </tr>
+                <tr>
+                  <td style="background-color: #f4f4f4;"><b>Zero-Shot<br>Style Imitation</b></td>
+                  <td>
+                    <b>Vevo-Style</b>
+                  </td>
+                  <td>
+                    \( \textcolor{blue}{U_i} \)
+                  </td>
+                  <td>\( \textcolor{red}{U_r} \)</td>
+                  <td>
+                    \( \textcolor{blue}{U_i} \)
+                  </td>
+                </tr>
+                <tr>
+                  <td rowspan="2" style="background-color: #f4f4f4;"><b>Zero-Shot<br>Voice Imitation</b></td>
+                  <td>
+                    <b>Vevo-Voice</b>
+                  </td>
+                  <td>
+                    \( \textcolor{blue}{U_i} \)
+                  </td>
+                  <td>\( \textcolor{red}{U_r} \)</td>
+                  <td>
+                    \( \textcolor{red}{U_r} \)
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Vevo-TTS</b>
+                  </td>
+                  <td>
+                    \( \textcolor{blue}{T_i} \)
+                  </td>
+                  <td>\( \textcolor{red}{U_r} \)</td>
+                  <td>
+                    \( \textcolor{red}{U_r} \)
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+
         <div class="mt-8 mb-8">
-          <h4 id="tldr">Gallery</h4>
-          <!-- <p>
-            TODO
-          </p> -->
+          <p>
+            We will showcase the diverse capabilities of Vevo through an example. Specifically, we begin by using text
+            as input to generate an utterance with Vevo-TTS. We then demonstrate how to apply different transformations
+            to
+            this utterance using Vevo-Timbre, Vevo-Style, and Vevo-Voice.
+          </p>
         </div>
 
         <div class="w-full overflow-x-auto">
@@ -146,15 +236,19 @@
             <table class="table-gallery">
               <thead>
                 <tr>
-                  <th style="text-align: center;">Source</th>
-                  <th style="text-align: center;">Reference</th>
-                  <th style="text-align: center;">Imitated Attributes</th>
-                  <th style="text-align: center;">Target</th>
-                  <th style="text-align: center;">Applications</th>
+                  <th style="text-align: center; width: 12%;">Model</th>
+                  <th style="text-align: center; width: 20%;">Source</th>
+                  <th style="text-align: center; width: 20%;">Reference</th>
+                  <th style="text-align: center; width: 10%;">Imitated Attributes</th>
+                  <th style="text-align: center; width: 20%;">Target</th>
+                  <th style="text-align: center; width: 18%;">Applications</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
+                  <td style="background-color: #f4f4f4;">
+                    <b>Vevo-TTS</b>
+                  </td>
                   <td>
                     I'm a versatile zero-shot voice cloner. I can mimic a wide range of vocal styles from
                     either text or waveform as input.
@@ -177,6 +271,9 @@
                   </td>
                 </tr>
                 <tr>
+                  <td style="background-color: #f4f4f4;">
+                    <b>Vevo-Timbre</b>
+                  </td>
                   <td rowspan="5">
                     <audio controls>
                       <source src="data/gallery/tts_versacloner_I.wav">
@@ -201,6 +298,9 @@
                 </tr>
 
                 <tr>
+                  <td style="background-color: #f4f4f4;">
+                    <b>Vevo-Voice</b>
+                  </td>
                   <td>
                     <b>Timbre</b>, <b>Style</b>
                   </td>
@@ -212,6 +312,9 @@
                 </tr>
 
                 <tr>
+                  <td rowspan="3" style="background-color: #f4f4f4;">
+                    <b>Vevo-Style</b>
+                  </td>
                   <td>
                     <audio controls>
                       <source src="data/gallery/vc_prompt_hindi.wav">
@@ -273,6 +376,268 @@
           </div>
         </div>
 
+
+        <div class="mt-8 mb-8">
+          <h4 id="tldr">Timbre Imitation & Voice Imitation (Conversion Task)</h4>
+        </div>
+
+        <div class="mt-8 mb-8">
+          <h5 id="tldr">Vevo-Timbre <i>v.s.</i> Vevo-Voice</h5>
+          <p>
+            Vevo-Timbre and Vevo-Voice can both convert the speaker characteristics of speech. The key difference
+            between them is
+            that
+            Vevo-Timbre only imitates the timbre of the reference speech, while <b>effectively preserving the style of
+              the
+              source speech</b> (e.g., prosody, emotion, accent). On the other hand, Vevo-Voice imitates both the timbre
+            and
+            style of the reference speech, resulting in <b>higher speaker similarity to the reference</b>. We will
+            demonstrate the characteristics and distinctions between Vevo-Timbre and Vevo-Voice using samples
+            from different domains.
+          </p>
+        </div>
+
+        <div class="mt-8 mb-8">
+          <p>
+            For <b>accented corpus</b>, we find that
+            Vevo-Timbre retains the accent of the source speech, whereas
+            Vevo-Voice
+            mimics the accent of the reference speech:
+          </p>
+        </div>
+
+        <div class="w-full overflow-x-auto">
+          <div class="relative w-[1026px] mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
+            <table style="width: 100%;">
+              <thead>
+                <tr>
+                  <th style="text-align: center; width: 25%;">Source</th>
+                  <th style="text-align: center; width: 25%;">Reference</th>
+                  <th style="text-align: center; width: 25%;">
+                    Vevo-Timbre
+                  </th>
+                  <th style="text-align: center; width: 25%;">Vevo-Voice</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/accent/01_src.wav">
+                    </audio>
+                    Mandarin-accented
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/accent/01_ref.wav">
+                    </audio>
+                    Hindi-accented
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/accent/01_VevoTimbre.wav">
+                    </audio>
+                    Mandarin-accented
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/accent/01_VevoVoice.wav">
+                    </audio>
+                    Hindi-accented
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/accent/03_src.wav">
+                    </audio>
+                    Mandarin-accented
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/accent/03_ref.wav">
+                    </audio>
+                    Arabic-accented
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/accent/03_VevoTimbre.wav">
+                    </audio>
+                    Mandarin-accented
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/accent/03_VevoVoice.wav">
+                    </audio>
+                    Arabic-accented
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="mt-8 mb-8">
+          <p>
+            For <b>emotional corpus</b>, we find that
+            Vevo-Timbre retains the emotion of the source speech, whereas
+            Vevo-Voice
+            mimics the emotion of the reference speech:
+          </p>
+        </div>
+
+        <div class="w-full overflow-x-auto">
+          <div class="relative w-[1026px] mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
+            <table style="width: 100%;">
+              <thead>
+                <tr>
+                  <th style="text-align: center; width: 25%;">Source</th>
+                  <th style="text-align: center; width: 25%;">Reference</th>
+                  <th style="text-align: center; width: 25%;">
+                    Vevo-Timbre
+                  </th>
+                  <th style="text-align: center; width: 25%;">Vevo-Voice</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Emotional Data -->
+                <tr>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/emotion/01_src.wav">
+                    </audio>
+                    Neutral
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/emotion/01_ref.wav">
+                    </audio>
+                    Angry
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/emotion/01_VevoTimbre.wav">
+                    </audio>
+                    Neutral
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/emotion/01_VevoVoice.wav">
+                    </audio>
+                    Angry
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/emotion/03_src.wav">
+                    </audio>
+                    Angry
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/emotion/03_ref.wav">
+                    </audio>
+                    Neutral
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/emotion/03_VevoTimbre.wav">
+                    </audio>
+                    Angry
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/emotion/03_VevoVoice.wav">
+                    </audio>
+                    Neutral
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="mt-8 mb-8">
+          <p>
+            For <b>general corpus</b>, we also observe that Vevo-Timbre maintains the prosody of the source speech,
+            while
+            Vevo-Voice can imitate the speech rate, stress, and rhythm of the reference speech:
+          </p>
+        </div>
+
+        <div class="w-full overflow-x-auto">
+          <div class="relative w-[1026px] mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
+            <table style="width: 100%;">
+              <thead>
+                <tr>
+                  <th style="text-align: center; width: 25%;">Source</th>
+                  <th style="text-align: center; width: 25%;">Reference</th>
+                  <th style="text-align: center; width: 25%;">
+                    Vevo-Timbre
+                  </th>
+                  <th style="text-align: center; width: 25%;">Vevo-Voice</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Clean Data -->
+                <tr>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/clean/03_src.wav">
+                    </audio>
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/clean/03_ref.wav">
+                    </audio>
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/clean/03_VevoTimbre.wav">
+                    </audio>
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/clean/03_VevoVoice.wav">
+                    </audio>
+                  </td>
+                </tr>
+                <!-- Noisy Data -->
+                <tr>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/noisy/03_src.wav">
+                    </audio>
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/noisy/03_ref.wav">
+                    </audio>
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/noisy/03_VevoTimbre.wav">
+                    </audio>
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="data/vc/noisy/03_VevoVoice.wav">
+                    </audio>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- <div class="mt-8 mb-8">
+          <h5 id="tldr">Compared to Baselines</h5>
+          <p>
+            TODO
+          </p>
+        </div> -->
 
 
 
