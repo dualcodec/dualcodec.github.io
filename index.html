@@ -93,18 +93,48 @@
 <body class="dark:bg-gray-900">
   <div id="app">
 
-    <div class="p-5 md:p-0 mt-16 max-w-screen-xl mx-auto">
-      <div id="tocContainer" class="toc">
-        <a href="#home">
-          <h2>Contents</h2>
-        </a>
-        <ul id="toc"></ul>
+    <nav
+      class="bg-white fixed w-full z-20 top-0 start-0 border-gray-200 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-600"
+      style="font-weight: bold;">
+      <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
+        <button data-collapse-toggle="navbar-default" type="button"
+          class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          aria-controls="navbar-default" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M1 1h15M1 7h15M1 13h15" />
+          </svg>
+        </button>
+
+        <div class="hidden w-full md:block md:w-auto ml-auto" id="navbar-default">
+          <ul
+            class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <li>
+              <a href="#home" class="list-select"><b>Home</b></a>
+            </li>
+            <li>
+              <a href="#vevo-vc" class="list-select"><b>Vevo-Timbre</b></a>
+            </li>
+            <li>
+              <a href="#vevo-style" class="list-select"><b>Vevo-Style</b></a>
+            </li>
+            <li>
+              <a href="#vevo-vc" class="list-select"><b>Vevo-Voice</b></a>
+            </li>
+            <li>
+              <a href="#vevo-tts" class="list-select"><b>Vevo-TTS</b></a>
+            </li>
+          </ul>
+        </div>
       </div>
+    </nav>
 
+
+    <div class="p-5 md:p-0 mt-16 max-w-screen-xl mx-auto">
       <div class="p-6" id="home">
-
         <div class="mt-8 mb-8">
-          <h1>Vevo: Controllable Zero-Shot Voice Imitation with Self-Supervised Disentanglement</h1>
+          <h1>Vevo: Controllable Zero-Shot Voice Imitation with<br> Self-Supervised Disentanglement</h1>
         </div>
 
         <div class="max-w-[900px] mx-auto mt-8 mb-16">
@@ -135,7 +165,7 @@
           </p>
         </div>
 
-        <div class="mt-8 mb-8">
+        <div class="mt-8 mb-8" id="gallery">
           <h4>What can Vevo do?</h4>
           <div class="flex mx-auto justify-center max-w-screen-lg py-8">
             <img src="static/vevo-inference.png"></img>
@@ -388,7 +418,7 @@
         </div>
 
 
-        <div class="mt-8 mb-8">
+        <div class="mt-8 mb-8" id="vevo-vc">
           <h4>Timbre Imitation and Voice Imitation (Conversion Task)</h4>
         </div>
 
@@ -1222,7 +1252,7 @@
           </div>
         </div>
 
-        <div class="mt-8 mb-8">
+        <div class="mt-8 mb-8" id="vevo-style">
           <h4>Style Imitation</h4>
           <p>
             We present the performance of <b>Vevo-Style</b> in the zero-shot style imitation task, focusing on widely
@@ -2389,7 +2419,7 @@
           </div>
         </div>
 
-        <div class="mt-8 mb-8">
+        <div class="mt-8 mb-8" id="vevo-tts">
           <h4>Voice Imitation (Synthesis Task)</h4>
           <p>
             To evaluate the performance of <b>Vevo-TTS</b> in the zero-shot voice imitation (synthesis) task, we select
@@ -4202,13 +4232,13 @@
       const toc = document.getElementById('toc');
       document.querySelectorAll('h4, h5').forEach((element, index) => {
         const anchor = `heading-${index}`;
-        element.id = anchor; // 设置每个标题的ID，用于链接的锚点
+        element.id = anchor;
 
         const listItem = document.createElement('li');
         const link = document.createElement('a');
         link.href = `#${anchor}`;
         link.textContent = element.textContent;
-        link.className = `toc-link toc-${element.tagName.toLowerCase()}`; // 根据标签名添加类
+        link.className = `toc-link toc-${element.tagName.toLowerCase()}`;
         listItem.appendChild(link);
         toc.appendChild(listItem);
       });
@@ -4218,13 +4248,13 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const tocContainer = document.getElementById('tocContainer');
-      const showThreshold = 20; // 显示Contents的滚动阈值百分比
-      const hideThreshold = 5; // 隐藏Contents的滚动阈值百分比
+      const showThreshold = 20;
+      const hideThreshold = 5;
 
       function checkScroll() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrollPercent = (scrollTop / docHeight) * 100; // 计算当前滚动位置的百分比
+        const scrollPercent = (scrollTop / docHeight) * 100;
 
         if (scrollPercent > showThreshold) {
           tocContainer.classList.add('active');
@@ -4234,13 +4264,9 @@
       }
 
       window.addEventListener('scroll', checkScroll);
-      checkScroll(); // 初始检查，以防刷新页面时已经处于中间位置
+      checkScroll();
     });
   </script>
-
-
-
-
 
 </body>
 

@@ -40,7 +40,6 @@ audio {
     color: #2a6db4;
     font-weight: bold;
     margin-right: 5px;
-    /* text-decoration: underline; */
     text-transform: uppercase;
 }
 
@@ -68,19 +67,15 @@ audio {
 .toc {
     opacity: 0;
     transform: translateY(-20px);
-    /* 在隐藏时稍微向上移动，增加动画效果 */
     display: block;
-    /* 保持为block以允许过渡，但是透明度为0 */
     transition: opacity 0.5s ease, transform 0.5s ease;
-    /* 添加平滑过渡效果 */
     pointer-events: none;
-    /* 确保在隐藏时不会阻挡下面的元素 */
 
     position: fixed;
     top: 0;
     left: 0;
     width: 15%;
-    height: 100vh;
+    height: 20vh;
     background: #f9f9f9;
     padding: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -89,13 +84,10 @@ audio {
     z-index: 1000;
 }
 
-/* 显示状态的样式 */
 .toc.active {
     opacity: 1;
     transform: translateY(0px);
-    /* 回到原位置 */
     pointer-events: auto;
-    /* 恢复交互功能 */
 }
 
 .toc ul {
