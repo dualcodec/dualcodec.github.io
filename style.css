@@ -1,3 +1,4 @@
+/***** Table *****/
 .table {
     width: 100%;
     border-collapse: collapse;
@@ -20,54 +21,112 @@ td {
     vertical-align: middle;
 }
 
+tr:hover {
+    background-color: #eef6f9;
+}
+
 audio {
     width: 100%;
 }
 
-/* .table-gallery th:nth-child(1),
-.table-gallery td:nth-child(1) {
-    width: 10%;
+/***** pagination *****/
+#pagination {
+    text-align: center;
+    padding: 20px 0;
 }
 
-.table-gallery th:nth-child(2),
-.table-gallery td:nth-child(2),
-.table-gallery th:nth-child(3),
-.table-gallery td:nth-child(3),
-.table-gallery th:nth-child(5),
-.table-gallery td:nth-child(5) {
-    width: 20%;
+#pagination .page-guide {
+    font-size: medium;
+    color: #2a6db4;
+    font-weight: bold;
+    margin-right: 5px;
+    /* text-decoration: underline; */
+    text-transform: uppercase;
 }
 
-.table-gallery th:nth-child(4),
-.table-gallery td:nth-child(4) {
-    width: 5%;
+#pagination button {
+    background-color: #e7f0fa;
+    border: 1px solid #b3d1f3;
+    color: #0056b3;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    margin: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 5px;
 }
 
-.table-gallery th:nth-child(6),
-.table-gallery td:nth-child(6) {
-    width: 25%;
-} */
-
-/* For even rows, different colors */
-/* .table-gallery tr:nth-child(even) {
-    background-color: #f9f9f9;
-} */
-
-.table-gallery tr:hover {
-    background-color: #eef6f9;
+#pagination button:hover,
+#pagination button:focus {
+    background-color: #d1e5f5;
+    color: #003366;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* 
-.table-vc-vevo th:nth-child(1),
-.table-vc-vevo td:nth-child(1) {
-    width: 8%;
+/***** TOC *****/
+.toc {
+    opacity: 0;
+    transform: translateY(-20px);
+    /* 在隐藏时稍微向上移动，增加动画效果 */
+    display: block;
+    /* 保持为block以允许过渡，但是透明度为0 */
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    /* 添加平滑过渡效果 */
+    pointer-events: none;
+    /* 确保在隐藏时不会阻挡下面的元素 */
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 15%;
+    height: 100vh;
+    background: #f9f9f9;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #ddd;
+    overflow-y: auto;
+    z-index: 1000;
 }
 
-.table-vc-vevo th:nth-child(2),
-.table-vc-vevo td:nth-child(2),
-.table-vc-vevo th:nth-child(3),
-.table-vc-vevo td:nth-child(3),
-.table-vc-vevo th:nth-child(4),
-.table-vc-vevo td:nth-child(4) {
-    width: 23%;
-} */
+/* 显示状态的样式 */
+.toc.active {
+    opacity: 1;
+    transform: translateY(0px);
+    /* 回到原位置 */
+    pointer-events: auto;
+    /* 恢复交互功能 */
+}
+
+.toc ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.toc li {
+    margin-bottom: 10px;
+}
+
+.toc li a {
+    color: #333;
+    transition: color 0.3s;
+}
+
+.toc li a:hover {
+    color: #555;
+}
+
+
+.toc-h4 {
+    font-weight: bold;
+    padding-left: 0px;
+}
+
+.toc-h5 {
+    padding-left: 30px;
+}
+
+/***** Layout *****/
+#home {
+    width: 100%;
+}
