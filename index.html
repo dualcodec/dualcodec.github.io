@@ -10,7 +10,6 @@
   <script src="./static/vue.global.js"></script>
   <script src="./static/flowbite.min.js"></script>
   <script src="./static/d3.v7.min.js"></script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <style type="text/tailwindcss">
@@ -4225,47 +4224,6 @@
       showTTSGeneralPage('tts-clean')
     };
 
-  </script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const toc = document.getElementById('toc');
-      document.querySelectorAll('h4, h5').forEach((element, index) => {
-        const anchor = `heading-${index}`;
-        element.id = anchor;
-
-        const listItem = document.createElement('li');
-        const link = document.createElement('a');
-        link.href = `#${anchor}`;
-        link.textContent = element.textContent;
-        link.className = `toc-link toc-${element.tagName.toLowerCase()}`;
-        listItem.appendChild(link);
-        toc.appendChild(listItem);
-      });
-    });
-  </script>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const tocContainer = document.getElementById('tocContainer');
-      const showThreshold = 20;
-      const hideThreshold = 5;
-
-      function checkScroll() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrollPercent = (scrollTop / docHeight) * 100;
-
-        if (scrollPercent > showThreshold) {
-          tocContainer.classList.add('active');
-        } else if (scrollPercent < hideThreshold) {
-          tocContainer.classList.remove('active');
-        }
-      }
-
-      window.addEventListener('scroll', checkScroll);
-      checkScroll();
-    });
   </script>
 
 </body>
