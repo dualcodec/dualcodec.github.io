@@ -27,29 +27,29 @@
       }
 
       h1 {
-        @apply mb-6 text-4xl font-bold text-gray-900 dark:text-white text-center;
+        @apply mb-6 text-4xl font-bold text-gray-900 text-center;
       }
 
       h2 {
-        @apply mb-3 pt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white;
+        @apply mb-3 pt-4 text-2xl font-bold tracking-tight text-gray-900;
       }
 
       h4 {
-        @apply mb-4 pt-12 text-3xl font-semibold text-gray-900 dark:text-white;
+        @apply mb-4 pt-12 text-3xl font-semibold text-gray-900;
       }
 
       h5 {
-        @apply mb-3 pt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white;
+        @apply mb-3 pt-4 text-2xl font-bold tracking-tight text-gray-900;
       }
 
       p {
-        @apply mb-4 font-normal text-gray-900 dark:text-gray-400 leading-relaxed;
+        @apply mb-4 font-normal text-gray-900 leading-relaxed;
       }
     }
 
     @layer components {
       .list-select {
-        @apply block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent;
+        @apply block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0;
       }
 
       .tooltip {
@@ -65,15 +65,15 @@
       }
 
       .text-p {
-        @apply mb-4 font-normal text-gray-900 dark:text-gray-400 leading-relaxed;
+        @apply mb-4 font-normal text-gray-900 leading-relaxed;
       }
 
       .author {
-        @apply font-medium mr-2 pb-1 text-gray-900 dark:text-gray-400 inline-block;
+        @apply font-medium mr-2 pb-1 text-gray-900 inline-block;
       }
 
       .affiliation {
-        @apply font-medium mr-2 pb-1 text-gray-900 dark:text-gray-400 block;
+        @apply font-medium mr-2 pb-1 text-gray-900 block;
       }
     }
   </style>
@@ -89,15 +89,14 @@
   </script>
 </head>
 
-<body class="dark:bg-gray-900">
+<body>
   <div id="app">
 
-    <nav
-      class="bg-white fixed w-full z-20 top-0 start-0 border-gray-200 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-600"
+    <nav class="bg-white fixed w-full z-20 top-0 start-0 border-gray-200 border-b border-gray-200"
       style="font-weight: bold;">
       <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
         <button data-collapse-toggle="navbar-default" type="button"
-          class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
           aria-controls="navbar-default" aria-expanded="false">
           <span class="sr-only">Open main menu</span>
           <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
@@ -108,7 +107,7 @@
 
         <div class="hidden w-full md:block md:w-auto ml-auto" id="navbar-default">
           <ul
-            class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white">
             <li>
               <a href="#home" class="list-select"><b>Home</b></a>
             </li>
@@ -139,26 +138,40 @@
         <div class="max-w-[900px] mx-auto mt-8 mb-16">
           <h2>Abstract</h2>
           <p class="text-p">
-            The imitation of voice, targeted on specific speech attributes such as timbre and speaking style, is crucial
-            in speech generation. However, existing methods rely heavily on annotated data, and struggle with
-            effectively disentangling timbre and style, leading to challenges in achieving controllable generation,
-            especially in zero-shot scenarios. To address these issues, we propose <b>Vevo</b>, a <b>ve</b>rsatile
+            The imitation of voice, targeted on specific speech attributes such as timbre and speaking
+            style, is crucial
+            in speech generation. However, existing methods rely heavily on annotated data, and struggle
+            with
+            effectively disentangling timbre and style, leading to challenges in achieving controllable
+            generation,
+            especially in zero-shot scenarios. To address these issues, we propose <b>Vevo</b>, a
+            <b>ve</b>rsatile
             zero-shot
             <b>vo</b>ice
             imitation framework with controllable timbre and style. Vevo operates in two core stages: (1)
             <b>Content-Style
-              Modeling</b>: Given either text or speech's content tokens as input, we utilize an autoregressive
+              Modeling</b>: Given either text or speech's content tokens as input, we utilize an
+            autoregressive
             transformer to
-            generate the content-style tokens, which is prompted by a style reference; (2) <b>Acoustic Modeling</b>:
+            generate the content-style tokens, which is prompted by a style reference; (2) <b>Acoustic
+              Modeling</b>:
             Given the
-            content-style tokens as input, we employ a flow-matching transformer to produce acoustic representations,
-            which is prompted by a timbre reference. To obtain the content and content-style tokens of speech, we design
-            a fully self-supervised approach that progressively decouples the timbre, style, and linguistic content of
-            speech. Specifically, we adopt VQ-VAE as the tokenizer for the continuous hidden features of HuBERT. We
-            treat the vocabulary size of the VQ-VAE codebook as the information bottleneck, and adjust it carefully to
-            obtain the disentangled speech representations. Solely self-supervised trained on 60K hours of audiobook
-            speech data, without any fine-tuning on style-specific corpora, Vevo matches or surpasses existing methods
-            in accent and emotion conversion tasks. Additionally, Vevo’s effectiveness in zero-shot voice conversion and
+            content-style tokens as input, we employ a flow-matching transformer to produce acoustic
+            representations,
+            which is prompted by a timbre reference. To obtain the content and content-style tokens of
+            speech, we design
+            a fully self-supervised approach that progressively decouples the timbre, style, and linguistic
+            content of
+            speech. Specifically, we adopt VQ-VAE as the tokenizer for the continuous hidden features of
+            HuBERT. We
+            treat the vocabulary size of the VQ-VAE codebook as the information bottleneck, and adjust it
+            carefully to
+            obtain the disentangled speech representations. Solely self-supervised trained on 60K hours of
+            audiobook
+            speech data, without any fine-tuning on style-specific corpora, Vevo matches or surpasses
+            existing methods
+            in accent and emotion conversion tasks. Additionally, Vevo’s effectiveness in zero-shot voice
+            conversion and
             text-to-speech tasks further demonstrates its strong generalization and versatility.
 
           </p>
@@ -172,8 +185,10 @@
           <p>
             Vevo can take <i>either</i> speech <i>or</i> text as input, and perform zero-shot imitation with
             controllable linguistic
-            content (controlled by the source), style (controlled by the style reference), and timbre (controlled by the
-            timbre reference) in a single forward pass. This inference pipeline can be adjusted for various zero-shot
+            content (controlled by the source), style (controlled by the style reference), and timbre
+            (controlled by the
+            timbre reference) in a single forward pass. This inference pipeline can be adjusted for various
+            zero-shot
             imitation tasks.
           </p>
           <p>
@@ -187,9 +202,10 @@
 
 
         <div class="w-full overflow-x-auto">
-          <div class="relative w-[700px] mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
+          <div class="relative w-[700px] mx-auto text-sm text-left rtl:text-right text-gray-900">
             <table>
-              <caption style="caption-side: bottom; text-align: left;"><b>Note</b>: For Vevo-Timbre, we directly extract
+              <caption style="caption-side: bottom; text-align: left;"><b>Note</b>: For Vevo-Timbre, we
+                directly extract
                 the
                 content-style tokens from the source speech, and input them into flow-matching
                 transformer for generation.</caption>
@@ -231,7 +247,8 @@
                   </td>
                 </tr>
                 <tr>
-                  <td rowspan="2" style="background-color: #f4f4f4;"><b>Zero-Shot<br>Voice Imitation</b></td>
+                  <td rowspan="2" style="background-color: #f4f4f4;"><b>Zero-Shot<br>Voice
+                      Imitation</b></td>
                   <td>
                     <b>Vevo-Voice</b>
                   </td>
@@ -264,15 +281,17 @@
 
         <div class="mt-8 mb-8">
           <p>
-            We will showcase the diverse capabilities of Vevo through an example. Specifically, we begin by using text
-            as input to generate an utterance with Vevo-TTS. We then demonstrate how to apply different transformations
+            We will showcase the diverse capabilities of Vevo through an example. Specifically, we begin by
+            using text
+            as input to generate an utterance with Vevo-TTS. We then demonstrate how to apply different
+            transformations
             to
             this utterance using Vevo-Timbre, Vevo-Style, and Vevo-Voice.
           </p>
         </div>
 
         <div class="w-full overflow-x-auto">
-          <div class="relative w-[1026px] mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
+          <div class="relative w-[1026px] mx-auto text-sm text-left rtl:text-right text-gray-900">
             <table class="table-gallery">
               <thead>
                 <tr>
@@ -290,7 +309,8 @@
                     <b>Vevo-TTS</b>
                   </td>
                   <td>
-                    I'm a versatile zero-shot voice cloner. I can mimic a wide range of vocal styles from
+                    I'm a versatile zero-shot voice cloner. I can mimic a wide range of vocal styles
+                    from
                     either text or waveform as input.
                   </td>
                   <td>
@@ -424,16 +444,21 @@
         <div class="mt-8 mb-8">
           <h5>Vevo-Timbre <i>v.s.</i> Vevo-Voice</h5>
           <p>
-            <b>Vevo-Timbre</b> and <b>Vevo-Voice</b> can both convert the speaker characteristics of speech. The key
+            <b>Vevo-Timbre</b> and <b>Vevo-Voice</b> can both convert the speaker characteristics of speech.
+            The key
             difference
             between them is
             that
-            Vevo-Timbre only imitates the timbre of the reference speech, while <b>effectively preserving the style of
+            Vevo-Timbre only imitates the timbre of the reference speech, while <b>effectively preserving
+              the style of
               the
-              source speech</b> (e.g., prosody, emotion, accent). On the other hand, Vevo-Voice imitates both the timbre
+              source speech</b> (e.g., prosody, emotion, accent). On the other hand, Vevo-Voice imitates
+            both the timbre
             and
-            style of the reference speech, resulting in <b>higher speaker similarity to the reference</b>. We will
-            demonstrate the characteristics and distinctions between Vevo-Timbre and Vevo-Voice using samples
+            style of the reference speech, resulting in <b>higher speaker similarity to the reference</b>.
+            We will
+            demonstrate the characteristics and distinctions between Vevo-Timbre and Vevo-Voice using
+            samples
             from different domains.
           </p>
         </div>
@@ -448,7 +473,7 @@
         </div>
 
         <div class="w-full overflow-x-auto">
-          <div class="relative w-[1026px] mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
+          <div class="relative w-[1026px] mx-auto text-sm text-left rtl:text-right text-gray-900">
             <table style="width: 100%;">
               <thead>
                 <tr>
@@ -529,7 +554,7 @@
         </div>
 
         <div class="w-full overflow-x-auto">
-          <div class="relative w-[1026px] mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
+          <div class="relative w-[1026px] mx-auto text-sm text-left rtl:text-right text-gray-900">
             <table style="width: 100%;">
               <thead>
                 <tr>
@@ -602,14 +627,15 @@
 
         <div class="mt-8 mb-8">
           <p>
-            For <b>general corpus</b>, we observe that Vevo-Timbre maintains the prosody of the source speech,
+            For <b>general corpus</b>, we observe that Vevo-Timbre maintains the prosody of the source
+            speech,
             while
             Vevo-Voice can imitate the speech rate, stress, and rhythm of the reference speech:
           </p>
         </div>
 
         <div class="w-full overflow-x-auto">
-          <div class="relative w-[1026px] mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
+          <div class="relative w-[1026px] mx-auto text-sm text-left rtl:text-right text-gray-900">
             <table style="width: 100%;">
               <thead>
                 <tr>
@@ -687,7 +713,7 @@
 
 
         <div class="mt-8 mb-8">
-          <div class="mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
+          <div class="mx-auto text-sm text-left rtl:text-right text-gray-900">
             <table id="vc-table" style="width: 100%;">
               <thead>
                 <tr>
@@ -1254,8 +1280,10 @@
         <div class="mt-8 mb-8" id="vevo-style">
           <h4>Style Imitation</h4>
           <p>
-            We present the performance of <b>Vevo-Style</b> in the zero-shot style imitation task, focusing on widely
-            studied styles such as <b>accent</b> and <b>emotion</b>. Notably, Vevo-Style employs a <b>zero-shot</b>
+            We present the performance of <b>Vevo-Style</b> in the zero-shot style imitation task, focusing
+            on widely
+            studied styles such as <b>accent</b> and <b>emotion</b>. Notably, Vevo-Style employs a
+            <b>zero-shot</b>
             manner (i.e.,
             using just a few seconds of
             speech) to achieve style
@@ -1269,8 +1297,10 @@
             For accent imitation, we select baselines from the accent conversion field: <a
               href="https://arxiv.org/abs/2211.13282">ASR-AC</a>,
             <a href="https://arxiv.org/abs/2404.06674">VoiceShop</a>, and <a
-              href="https://arxiv.org/abs/2408.10096">Conv-Speak</a>. We use their demo website samples as our
-            evaluation set. We also introduce a zero-shot style imitation model, <b>Vevo-Style (ASR)</b>, for
+              href="https://arxiv.org/abs/2408.10096">Conv-Speak</a>. We use their demo website samples as
+            our
+            evaluation set. We also introduce a zero-shot style imitation model, <b>Vevo-Style (ASR)</b>,
+            for
             comparison. Its only
             difference
             compared to
@@ -1280,7 +1310,7 @@
         </div>
 
         <div class="mt-8 mb-8">
-          <div class="mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
+          <div class="mx-auto text-sm text-left rtl:text-right text-gray-900">
             <table id="asrac-table" style="width: 100%;">
               <thead>
                 <tr>
@@ -1605,7 +1635,7 @@
         </div>
 
         <div class="mt-8 mb-8">
-          <div class="mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
+          <div class="mx-auto text-sm text-left rtl:text-right text-gray-900">
             <table id="voiceshop-table" style="width: 100%;">
               <thead>
                 <tr>
@@ -1883,8 +1913,10 @@
             <div id="pagination">
               <span class="page-guide">Compared to VoiceShop</span>
               <button onclick="showVoiceShopPage('voiceshop-american2hindi')">American to Hindi</button>
-              <button onclick="showVoiceShopPage('voiceshop-american2mandarin')">American to Mandarin</button>
-              <button onclick="showVoiceShopPage('voiceshop-british2american')">British to American</button>
+              <button onclick="showVoiceShopPage('voiceshop-american2mandarin')">American to
+                Mandarin</button>
+              <button onclick="showVoiceShopPage('voiceshop-british2american')">British to
+                American</button>
               <button onclick="showVoiceShopPage('voiceshop-british2hindi')">British to Hindi</button>
               <button onclick="showVoiceShopPage('voiceshop-hindi2american')">Hindi to American</button>
             </div>
@@ -1892,7 +1924,7 @@
         </div>
 
         <div class="mt-8 mb-8">
-          <div class="mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
+          <div class="mx-auto text-sm text-left rtl:text-right text-gray-900">
             <table id="convertandspeak-table" style="width: 100%;">
               <thead>
                 <tr>
@@ -2077,13 +2109,14 @@
           <h5>Emotional Corpus</h5>
           <p>
             For emotion imitation, we select a baseline from the emotion conversion field, <a
-              href="https://arxiv.org/abs/2201.03967">Emovox</a>. We use its demo website samples as our evaluation
+              href="https://arxiv.org/abs/2201.03967">Emovox</a>. We use its demo website samples as our
+            evaluation
             set.
           </p>
         </div>
 
         <div class="mt-8 mb-8">
-          <div class="mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
+          <div class="mx-auto text-sm text-left rtl:text-right text-gray-900">
             <table id="emovox-table" style="width: 100%;">
               <thead>
                 <tr>
@@ -2421,12 +2454,14 @@
         <div class="mt-8 mb-8" id="vevo-tts">
           <h4>Voice Imitation (Synthesis Task)</h4>
           <p>
-            To evaluate the performance of <b>Vevo-TTS</b> in the zero-shot voice imitation (synthesis) task, we select
+            To evaluate the performance of <b>Vevo-TTS</b> in the zero-shot voice imitation (synthesis)
+            task, we select
             the classic baselines of the zero-shot TTS filed, including the Non-AR model, <a
               href="https://arxiv.org/abs/2306.15687">Voicebox</a>, and
             the AR models such as <a href="https://github.com/open-mmlab/Amphion/tree/main/egs/tts/VALLE_V2">VALL-E</a>
             and <a href="https://github.com/jasonppy/VoiceCraft">VoiceCraft</a>, all of which are
-            trained only on audiobook speech data. For comparison, we also include two stronger state-of-the-art models:
+            trained only on audiobook speech data. For comparison, we also include two stronger
+            state-of-the-art models:
             <a href="https://github.com/FunAudioLLM/CosyVoice">CosyVoice</a> and <a
               href="https://arxiv.org/abs/2409.00750">MaskGCT</a>, which are
             trained on large-scale private corpus
@@ -2439,7 +2474,7 @@
         </div>
 
         <div class="mt-8 mb-8">
-          <div class="mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
+          <div class="mx-auto text-sm text-left rtl:text-right text-gray-900">
             <table id="tts-accent-table" style="width: 100%;">
               <thead>
                 <tr>
@@ -3031,7 +3066,7 @@
         </div>
 
         <div class="mt-8 mb-8">
-          <div class="mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
+          <div class="mx-auto text-sm text-left rtl:text-right text-gray-900">
             <table id="tts-emotion-table" style="width: 100%;">
               <thead>
                 <tr>
@@ -3623,7 +3658,7 @@
         </div>
 
         <div class="mt-8 mb-8">
-          <div class="mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
+          <div class="mx-auto text-sm text-left rtl:text-right text-gray-900">
             <table id="tts-general-table" style="width: 100%;">
               <thead>
                 <tr>
@@ -3657,7 +3692,8 @@
                 <!-- tts-clean -->
                 <tr class="tts-clean">
                   <td>
-                    He shrugged his shoulders in ungracious acquiescence, while our visitor in hurried words and with
+                    He shrugged his shoulders in ungracious acquiescence, while our visitor in
+                    hurried words and with
                     much excitable gesticulation poured forth his story.
                   </td>
                   <td>
@@ -3703,7 +3739,8 @@
                 </tr>
                 <tr class="tts-clean">
                   <td>
-                    A moment before the ghost of the ancient kingdom of the Danes had looked forth through the vesture
+                    A moment before the ghost of the ancient kingdom of the Danes had looked forth
+                    through the vesture
                     of the hazewrapped City.
                   </td>
                   <td>
@@ -3749,7 +3786,8 @@
                 </tr>
                 <tr class="tts-clean">
                   <td>
-                    "I know; but that renders your uncle a most agreeable companion and gossip," declared Dr. Pipt.
+                    "I know; but that renders your uncle a most agreeable companion and gossip,"
+                    declared Dr. Pipt.
                   </td>
                   <td>
                     <audio controls preload="none">
@@ -3794,7 +3832,8 @@
                 </tr>
                 <tr class="tts-clean">
                   <td>
-                    "Well, he wrote so furiously that he broke his pencil, and had, as you observe, to sharpen it again.
+                    "Well, he wrote so furiously that he broke his pencil, and had, as you observe,
+                    to sharpen it again.
                   </td>
                   <td>
                     <audio controls preload="none">
@@ -3839,7 +3878,8 @@
                 </tr>
                 <tr class="tts-clean">
                   <td>
-                    Emerald and black and russet and olive, it moved beneath the current, swaying and turning.
+                    Emerald and black and russet and olive, it moved beneath the current, swaying
+                    and turning.
                   </td>
                   <td>
                     <audio controls preload="none">
@@ -3930,7 +3970,8 @@
                 </tr>
                 <tr class="tts-noisy">
                   <td>
-                    One by one, the campfires were extinguished, and the oasis fell as quiet as the desert.
+                    One by one, the campfires were extinguished, and the oasis fell as quiet as the
+                    desert.
                   </td>
                   <td>
                     <audio controls preload="none">
@@ -4121,8 +4162,10 @@
         <div class="mt-8 mb-8">
           <h4>Ethics Statement</h4>
           <p>
-            As with other powerful new AI innovations, we recognize this technology brings the potential for misuse and
-            unintended harm. We will build a highly effective classifier that can distinguish between authentic speech
+            As with other powerful new AI innovations, we recognize this technology brings the potential for
+            misuse and
+            unintended harm. We will build a highly effective classifier that can distinguish between
+            authentic speech
             and audio generated with Vevo to mitigate these possible future risks.
           </p>
         </div>
